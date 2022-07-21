@@ -1,4 +1,4 @@
-const Card = (article) => {
+
   // TASK 5
   // ---------------------
   // Implement this function, which should return the markup you see below.
@@ -18,34 +18,37 @@ const Card = (article) => {
   // </div>
   //
 
+  import axios from "axios";
 
-const card = document.createElement("div");
-  const headline = document.createElement("div");
-  const author = document.createElement("div");
-  const imgContainer = document.createElement("div");
-  const img = document.createElement("img");
-  const authorName = document.createElement("span");
-
-  card.classList.add("card");
-  headline.classList.add("headline");
-  author.classList.add("author");
-  imgContainer.classList.add("img-container");
-  img.setAttribute("src", article.authorPhoto);
-  headline.textContent = article.headline;
-  author.textContent = article.authorName;
-
-  card.addEventListener("click", () => {
-    console.log(headline);
+  const Card = (article) => {
+    const cardDiv = document.createElement("div");
+    const headline = document.createElement("div");
+    const author = document.createElement("div");
+    const image = document.createElement("div");
+    const authorPhoto = document.createElement("img");
+    const authorName = document.createElement("span");
+  
+    cardDiv.className = "card";
+    headline.className = "headline";
+    author.className = "author";
+    image.className = "img-container";
+  
+    headline.textContent = article.headline;
+    authorName.textContent = article.authorName;
+    authorPhoto.src = `${article.authorPhoto}`;
+  
+    cardDiv.appendChild(headline);
+    cardDiv.appendChild(author);
+    author.appendChild(image);
+    image.appendChild(authorPhoto);
+    author.appendChild(authorName);
+  
+    cardDiv.addEventListener("click", () => {
+      console.log(headline);
   });
-
-  card.appendChild(headline);
-  card.appendChild(author);
-  author.appendChild(imgContainer);
-  author.appendChild(authorName);
-  imgContainer.appendChild(img);
-
-  return card;
-};
+  
+    return cardDiv;
+}
 
 const cardAppender = (selector) => {
   // TASK 6
@@ -58,7 +61,7 @@ const cardAppender = (selector) => {
   //
   const cardsContainer = document.querySelector(selector);
   axios
-    .get("http://localhost:5000/api/articles")
+    .get("http://localhost:5001/api/articles")
     .then((res) => {
       const {
         javascript,
